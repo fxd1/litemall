@@ -1,5 +1,6 @@
 package org.linlinjava.litemall.wx.service;
 
+import com.google.common.collect.Maps;
 import org.linlinjava.litemall.core.util.CharUtil;
 import org.linlinjava.litemall.wx.dao.UserToken;
 
@@ -8,11 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserTokenManager {
-    private static Map<String, UserToken> tokenMap = new HashMap<>();
-    private static Map<Integer, UserToken> idMap = new HashMap<>();
+    private static Map<String, UserToken> tokenMap = Maps.newConcurrentMap();
+    private static Map<Integer, UserToken> idMap = Maps.newConcurrentMap();
 
     public static Integer getUserId(String token) {
-
 
         UserToken userToken = tokenMap.get(token);
         if(userToken == null){

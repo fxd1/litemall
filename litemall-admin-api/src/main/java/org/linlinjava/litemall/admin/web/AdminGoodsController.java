@@ -1,20 +1,19 @@
 package org.linlinjava.litemall.admin.web;
 
-import io.swagger.models.auth.In;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.linlinjava.litemall.admin.annotation.LoginAdmin;
 import org.linlinjava.litemall.admin.dao.GoodsAllinone;
 import org.linlinjava.litemall.admin.dao.Product;
-import org.linlinjava.litemall.db.domain.LitemallGoods;
-import org.linlinjava.litemall.db.domain.LitemallGoodsAttribute;
-import org.linlinjava.litemall.db.domain.LitemallGoodsSpecification;
-import org.linlinjava.litemall.db.domain.LitemallProduct;
-import org.linlinjava.litemall.db.service.LitemallGoodsAttributeService;
-import org.linlinjava.litemall.db.service.LitemallGoodsService;
+import org.fengxiaodong.db.domain.LitemallGoods;
+import org.fengxiaodong.db.domain.LitemallGoodsAttribute;
+import org.fengxiaodong.db.domain.LitemallGoodsSpecification;
+import org.fengxiaodong.db.domain.LitemallProduct;
+import org.fengxiaodong.db.service.LitemallGoodsAttributeService;
+import org.fengxiaodong.db.service.LitemallGoodsService;
 import org.linlinjava.litemall.core.util.ResponseUtil;
-import org.linlinjava.litemall.db.service.LitemallGoodsSpecificationService;
-import org.linlinjava.litemall.db.service.LitemallProductService;
+import org.fengxiaodong.db.service.LitemallGoodsSpecificationService;
+import org.fengxiaodong.db.service.LitemallProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -22,7 +21,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;

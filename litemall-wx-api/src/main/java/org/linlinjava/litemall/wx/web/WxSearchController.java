@@ -1,9 +1,9 @@
 package org.linlinjava.litemall.wx.web;
 
-import org.linlinjava.litemall.db.domain.LitemallKeyword;
-import org.linlinjava.litemall.db.domain.LitemallSearchHistory;
-import org.linlinjava.litemall.db.service.LitemallKeywordService;
-import org.linlinjava.litemall.db.service.LitemallSearchHistoryService;
+import org.fengxiaodong.db.domain.LitemallKeyword;
+import org.fengxiaodong.db.domain.LitemallSearchHistory;
+import org.fengxiaodong.db.service.LitemallKeywordService;
+import org.fengxiaodong.db.service.LitemallSearchHistoryService;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.wx.annotation.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;

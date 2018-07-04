@@ -1,10 +1,10 @@
 package org.linlinjava.litemall.wx.web;
 
 import org.apache.commons.lang3.ObjectUtils;
-import org.linlinjava.litemall.db.domain.LitemallComment;
-import org.linlinjava.litemall.db.service.LitemallCommentService;
-import org.linlinjava.litemall.db.service.LitemallCouponService;
-import org.linlinjava.litemall.db.service.LitemallUserService;
+import org.fengxiaodong.db.domain.LitemallComment;
+import org.fengxiaodong.db.service.LitemallCommentService;
+import org.fengxiaodong.db.service.LitemallCouponService;
+import org.fengxiaodong.db.service.LitemallUserService;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.wx.annotation.LoginUser;
 import org.linlinjava.litemall.wx.service.UserInfoService;

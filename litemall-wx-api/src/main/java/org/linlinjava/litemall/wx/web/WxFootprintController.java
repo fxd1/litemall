@@ -1,9 +1,9 @@
 package org.linlinjava.litemall.wx.web;
 
-import org.linlinjava.litemall.db.domain.LitemallFootprint;
-import org.linlinjava.litemall.db.domain.LitemallGoods;
-import org.linlinjava.litemall.db.service.LitemallFootprintService;
-import org.linlinjava.litemall.db.service.LitemallGoodsService;
+import org.fengxiaodong.db.domain.LitemallFootprint;
+import org.fengxiaodong.db.domain.LitemallGoods;
+import org.fengxiaodong.db.service.LitemallFootprintService;
+import org.fengxiaodong.db.service.LitemallGoodsService;
 import org.linlinjava.litemall.core.util.JacksonUtil;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.wx.annotation.LoginUser;

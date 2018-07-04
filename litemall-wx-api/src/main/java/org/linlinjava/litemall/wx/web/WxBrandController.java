@@ -2,8 +2,8 @@ package org.linlinjava.litemall.wx.web;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.linlinjava.litemall.db.domain.LitemallBrand;
-import org.linlinjava.litemall.db.service.LitemallBrandService;
+import org.fengxiaodong.db.domain.LitemallBrand;
+import org.fengxiaodong.db.service.LitemallBrandService;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

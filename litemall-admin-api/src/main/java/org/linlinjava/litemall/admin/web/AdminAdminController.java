@@ -4,8 +4,8 @@ import org.linlinjava.litemall.admin.annotation.LoginAdmin;
 import org.linlinjava.litemall.admin.service.AdminTokenManager;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.core.util.bcrypt.BCryptPasswordEncoder;
-import org.linlinjava.litemall.db.domain.LitemallAdmin;
-import org.linlinjava.litemall.db.service.LitemallAdminService;
+import org.fengxiaodong.db.domain.LitemallAdmin;
+import org.fengxiaodong.db.service.LitemallAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,9 +1,8 @@
 package org.linlinjava.litemall.admin.dao;
 
-import org.linlinjava.litemall.db.domain.LitemallGoods;
-import org.linlinjava.litemall.db.domain.LitemallGoodsAttribute;
-import org.linlinjava.litemall.db.domain.LitemallGoodsSpecification;
-import org.linlinjava.litemall.db.domain.LitemallProduct;
+import org.fengxiaodong.db.domain.LitemallGoods;
+import org.fengxiaodong.db.domain.LitemallGoodsAttribute;
+import org.fengxiaodong.db.domain.LitemallGoodsSpecification;
 
 public class GoodsAllinone {
     LitemallGoods goods;
