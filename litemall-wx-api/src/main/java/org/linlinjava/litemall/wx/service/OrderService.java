@@ -1,7 +1,9 @@
 package org.linlinjava.litemall.wx.service;
 
+import com.google.common.collect.Lists;
 import org.fengxiaodong.db.bean.Address;
 import org.fengxiaodong.db.bean.Good;
+import org.fengxiaodong.db.bean.GoodExample;
 import org.fengxiaodong.db.dao.AddressMapper;
 import org.fengxiaodong.db.dao.ClassMapper;
 import org.fengxiaodong.db.dao.GoodMapper;
@@ -24,6 +26,8 @@ public class OrderService {
     private UserMapper userMapper;
     @Resource
     private AddressMapper addressMapper;
+
+
     @Transactional(propagation = Propagation.REQUIRED)
     public void submitOrder(List<Good> goodList, List<Address> addressList) {
 
@@ -46,8 +50,34 @@ public class OrderService {
 
         }
 
+    }
 
 
+    public List<Good> findAll(){
+        return goodMapper.selectByExample(
+                new GoodExample()
+                        .createCriteria()
+                        .andStatusNotIn(Lists.newArrayList(Good.Status.DELETE.getCode(), Good.Status.CACEL.getCode()))
+                        .example()
+                .orderBy(Good.Column.updateTime.desc())
+        );
+    }
+
+
+    /**
+     * 逻辑删除商品
+     * @param goodIds  商品id
+     */
+    public void deleteById(List<Integer> goodIds){
+
+        List<Good> goodList = goodMapper.selectByExample(new GoodExample()
+                .createCriteria().andIdIn(goodIds).example());
+        for (Good good : goodList) {
+            good.setStatus(Good.Status.DELETE.getCode());
+            goodMapper.updateByExampleSelective(good, new GoodExample()
+                    .createCriteria().andIdEqualTo(good.getId()).example());
+        }
 
     }
+
 }

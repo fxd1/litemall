@@ -30,7 +30,7 @@ create table if not EXISTS `good`(
    `name` varchar(50) NOT NULL DEFAULT '' COMMENT '物品的名称',
     `number` int(32) NOT NULL DEFAULT 0 COMMENT '数量',
    `price` double(10,2) NOT NULL DEFAULT 0 COMMENT '单价',
-   `status` tinyint NOT NULL DEFAULT 0 COMMENT '物品的状态：0，提交 1.已付款未发货 3. 已经发货未付款 4.已经发货且已付款 5.取消',
+   `status` tinyint NOT NULL DEFAULT 0 COMMENT '物品的状态：0，提交 1.已付款未发货 3. 已经发货未付款 4.已经发货且已付款 5.取消, 6 删除',
    `promotion_type` tinyint NOT NULL DEFAULT 0 COMMENT '营销种类 0：无 1：拼团 2：砍价',
    `update_time` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT  '更新时间',
    `create_time` TIMESTAMP NOT NULL COMMENT '创建时间',

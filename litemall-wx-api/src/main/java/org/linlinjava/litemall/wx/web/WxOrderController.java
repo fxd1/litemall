@@ -5,10 +5,13 @@ import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.bean.result.BaseWxPayResult;
+import com.google.common.collect.Maps;
+import io.swagger.models.auth.In;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.fengxiaodong.db.bean.Address;
+import org.fengxiaodong.db.bean.Class;
 import org.fengxiaodong.db.bean.Good;
 import org.fengxiaodong.db.domain.LitemallAddress;
 import org.fengxiaodong.db.domain.LitemallOrder;
@@ -21,6 +24,8 @@ import org.linlinjava.litemall.core.util.JacksonUtil;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.wx.annotation.Json2Bean;
 import org.linlinjava.litemall.wx.annotation.LoginUser;
+import org.linlinjava.litemall.wx.service.AddressService;
+import org.linlinjava.litemall.wx.service.ClassService;
 import org.linlinjava.litemall.wx.service.OrderService;
 import org.linlinjava.litemall.wx.web.dto.OrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +34,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,6 +67,12 @@ public class WxOrderController {
     @Resource
     private OrderService orderService;
 
+    @Resource
+    private ClassService classService;
+
+    @Resource
+    private AddressService addressService;
+
     /**
      * 提交订单
      * 1. good 表添加记录
@@ -90,6 +102,58 @@ public class WxOrderController {
         return ResponseUtil.ok(orderDto);
     }
 
+
+    /**
+     * 创建订单
+     * 提前准备的  物品分类信息 、 地址信息，用于用户的下单
+     * @param userId  用户ID
+     * @return  返回
+     */
+    @GetMapping("create")
+    public Object create(@LoginUser Integer userId){
+        if (userId == null){
+            return ResponseUtil.unlogin();
+        }
+        List<Address> addressList = addressService.findAll(userId);
+        List<Class> classList = classService.findAll();
+        HashMap<String, Object> dataMap = Maps.newHashMap();
+        dataMap.put("address", addressList);
+        dataMap.put("class", classList);
+        return ResponseUtil.ok(dataMap);
+
+    }
+
+
+    /**
+     * 用户查看我的订单，  按更新时间倒序排列，（除了 已删除、取消两种）
+     * @param userId 用户id
+     * @return 返回
+     */
+    public Object list(@LoginUser Integer userId){
+
+        if (userId == null){
+            return ResponseUtil.unlogin();
+        }
+
+        List<Good> goodList = orderService.findAll();
+
+        HashMap<String, Object> dataMap = Maps.newHashMap();
+
+        dataMap.put("goodList", goodList);
+
+        return ResponseUtil.ok(dataMap);
+
+    }
+
+    @GetMapping("delete")
+    public Object delete(@LoginUser Integer userId, List<Integer> goodIds){
+
+        if (CollectionUtils.isEmpty(goodIds)){
+            return ResponseUtil.fail();
+        }
+        orderService.deleteById(goodIds);
+        return ResponseUtil.ok();
+    }
 
     private String detailedAddress(LitemallAddress litemallAddress) {
         Integer provinceId = litemallAddress.getProvinceId();
