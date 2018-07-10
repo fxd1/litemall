@@ -6,12 +6,10 @@ import com.github.binarywang.wxpay.bean.order.WxPayMpOrderResult;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.bean.result.BaseWxPayResult;
 import com.google.common.collect.Maps;
-import io.swagger.models.auth.In;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.fengxiaodong.db.bean.Address;
-import org.fengxiaodong.db.bean.Class;
 import org.fengxiaodong.db.bean.Good;
 import org.fengxiaodong.db.domain.LitemallAddress;
 import org.fengxiaodong.db.domain.LitemallOrder;
@@ -92,12 +90,26 @@ public class WxOrderController {
             return ResponseUtil.badArgument();
         }
 
-        List<Good> goodList = orderDto.getGoodList();
-        List<Address> addressList = orderDto.getAddressList();
-        if (goodList == null || addressList == null) {
-            return ResponseUtil.badArgument();
+        //insert
+        if (orderDto.getId() == null || orderDto.getId() == 0) {
+
+            int orderId = orderService.createOrder(userId);
+            List<Good> goodList = orderDto.getGoodList();
+
+            for (Good good: goodList){
+                good.setOrderId(orderId);
+            }
+            Address address = orderDto.getAddress();
+            if (goodList == null || address == null) {
+                return ResponseUtil.badArgument();
+            }
+            orderService.submitOrder(goodList, address);
+            return ResponseUtil.ok(orderDto);
+
         }
-        orderService.submitOrder(goodList, addressList);
+
+        //update
+
 
         return ResponseUtil.ok(orderDto);
     }
@@ -109,8 +121,8 @@ public class WxOrderController {
      * @param userId  用户ID
      * @return  返回
      */
-    @GetMapping("create")
-    public Object create(@LoginUser Integer userId){
+    @GetMapping("preOrder")
+    public Object preOrder(@LoginUser Integer userId){
         if (userId == null){
             return ResponseUtil.unlogin();
         }

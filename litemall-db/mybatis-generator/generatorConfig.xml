@@ -74,7 +74,11 @@
             <columnOverride javaType="java.time.LocalDateTime" column="create_time"/>
             <columnOverride javaType="java.time.LocalDateTime" column="update_time"/>
         </table>
-
+        <table tableName="order">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride javaType="java.time.LocalDateTime" column="create_time"/>
+            <columnOverride javaType="java.time.LocalDateTime" column="update_time"/>
+        </table>
         <table tableName="trip">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride javaType="java.time.LocalDateTime" column="start_time"/>

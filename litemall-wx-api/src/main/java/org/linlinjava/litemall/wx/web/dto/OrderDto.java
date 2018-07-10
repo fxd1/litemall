@@ -9,9 +9,18 @@ import java.util.List;
 public class OrderDto {
 
 
+    private Integer id;
     private List<Good> goodList;
 
-    private List<Address> addressList;
+    private Address address;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public List<Good> getGoodList() {
         return goodList;
@@ -21,12 +30,12 @@ public class OrderDto {
         this.goodList = goodList;
     }
 
-    public List<Address> getAddressList() {
-        return addressList;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

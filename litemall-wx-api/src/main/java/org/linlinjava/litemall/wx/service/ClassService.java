@@ -1,8 +1,5 @@
 package org.linlinjava.litemall.wx.service;
 
-import org.fengxiaodong.db.bean.Class;
-import org.fengxiaodong.db.bean.ClassExample;
-import org.fengxiaodong.db.dao.ClassMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

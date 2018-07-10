@@ -26,6 +26,7 @@ create table if not EXISTS `address`(
 create table if not EXISTS `good`(
    `id` int(32) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
    `user_id` int(32) NOT NULL DEFAULT 0 COMMENT '用户的id',
+   `order_id` int(32) NOT NULL DEFAULT 0 COMMENT '订单id',
    `class_id` int(32) NOT NULL DEFAULT 0 COMMENT '种类id',
    `name` varchar(50) NOT NULL DEFAULT '' COMMENT '物品的名称',
     `number` int(32) NOT NULL DEFAULT 0 COMMENT '数量',
@@ -36,8 +37,21 @@ create table if not EXISTS `good`(
    `create_time` TIMESTAMP NOT NULL COMMENT '创建时间',
    PRIMARY KEY (`id`),
    KEY `user_id_index`(user_id),
-   KEY `class_id_index`(class_id)
+   KEY `class_id_index`(class_id),
+   KEY `order_id_index`(order_id)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='物品';
+
+create table if not exists `order`(
+   `id` int(32) unsigned NOT NULL  AUTO_INCREMENT COMMENT 'id',
+   `user_id` int(32) unsigned NOT NULL DEFAULT 0 COMMENT '',
+    `address_id` int(32) unsigned NOT NULL DEFAULT 0 COMMENT 'id',
+   `promotion_type` tinyint NOT NULL DEFAULT 0 COMMENT '营销种类 0：无 1：满减',
+   `update_time` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT  '更新时间',
+   `create_time` TIMESTAMP NOT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`)
+
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='订单';
+
 
 create table if not EXISTS `class`(
    `id` int(32) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
