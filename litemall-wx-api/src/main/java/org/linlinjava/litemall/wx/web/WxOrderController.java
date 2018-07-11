@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.fengxiaodong.db.bean.Address;
 import org.fengxiaodong.db.bean.Good;
+import org.fengxiaodong.db.bean.Order;
 import org.fengxiaodong.db.domain.LitemallAddress;
 import org.fengxiaodong.db.domain.LitemallOrder;
 import org.fengxiaodong.db.domain.LitemallOrderGoods;
@@ -91,26 +92,30 @@ public class WxOrderController {
         }
 
         //insert
-        if (orderDto.getId() == null || orderDto.getId() == 0) {
+        if (orderDto.getOrder() == null || orderDto.getOrder().getId() == 0) {
 
-            int orderId = orderService.createOrder(userId);
             List<Good> goodList = orderDto.getGoodList();
 
-            for (Good good: goodList){
-                good.setOrderId(orderId);
-            }
+
             Address address = orderDto.getAddress();
             if (goodList == null || address == null) {
                 return ResponseUtil.badArgument();
             }
-            orderService.submitOrder(goodList, address);
-            return ResponseUtil.ok(orderDto);
 
+            Order order = orderService.createOrder(userId);
+            for (Good good : goodList) {
+                good.setOrderId(order.getId());
+            }
+
+            orderService.submitOrder(order, orderDto.getGoodList(), orderDto.getAddress());
+            orderDto.setOrder(order);
+            return ResponseUtil.ok(orderDto);
         }
 
+        Order order = orderDto.getOrder();
+
         //update
-
-
+        orderService.submitOrder(order, orderDto.getGoodList(), orderDto.getAddress());
         return ResponseUtil.ok(orderDto);
     }
 
@@ -118,12 +123,13 @@ public class WxOrderController {
     /**
      * 创建订单
      * 提前准备的  物品分类信息 、 地址信息，用于用户的下单
-     * @param userId  用户ID
-     * @return  返回
+     *
+     * @param userId 用户ID
+     * @return 返回
      */
     @GetMapping("preOrder")
-    public Object preOrder(@LoginUser Integer userId){
-        if (userId == null){
+    public Object preOrder(@LoginUser Integer userId) {
+        if (userId == null) {
             return ResponseUtil.unlogin();
         }
         List<Address> addressList = addressService.findAll(userId);
@@ -138,45 +144,39 @@ public class WxOrderController {
 
     /**
      * 用户查看我的订单，  按更新时间倒序排列，（除了 已删除、取消两种）
+     *
      * @param userId 用户id
      * @return 返回
      */
-    public Object list(@LoginUser Integer userId){
+    public Object list(@LoginUser Integer userId) {
 
-        if (userId == null){
+        if (userId == null) {
             return ResponseUtil.unlogin();
         }
 
-        List<Good> goodList = orderService.findAll();
+        List<Order> orderList = orderService.findAll();
 
         HashMap<String, Object> dataMap = Maps.newHashMap();
 
-        dataMap.put("goodList", goodList);
+        dataMap.put("orderLisr", orderList);
 
         return ResponseUtil.ok(dataMap);
 
     }
 
     @GetMapping("delete")
-    public Object delete(@LoginUser Integer userId, List<Integer> goodIds){
+    public Object delete(@LoginUser Integer userId, List<Integer> orderIds) {
 
-        if (CollectionUtils.isEmpty(goodIds)){
+        if (userId == null){
+            return ResponseUtil.unlogin();
+        }
+        if (CollectionUtils.isEmpty(orderIds)) {
             return ResponseUtil.fail();
         }
-        orderService.deleteById(goodIds);
+        orderService.deleteById(orderIds);
         return ResponseUtil.ok();
     }
 
-    private String detailedAddress(LitemallAddress litemallAddress) {
-        Integer provinceId = litemallAddress.getProvinceId();
-        Integer cityId = litemallAddress.getCityId();
-        Integer areaId = litemallAddress.getAreaId();
-        String provinceName = regionService.findById(provinceId).getName();
-        String cityName = regionService.findById(cityId).getName();
-        String areaName = regionService.findById(areaId).getName();
-        String fullRegion = provinceName + " " + cityName + " " + areaName;
-        return fullRegion + " " + litemallAddress.getAddress();
-    }
 
     /**
      * 订单列表

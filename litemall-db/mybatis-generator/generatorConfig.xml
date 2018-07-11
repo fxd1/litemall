@@ -17,6 +17,16 @@
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
 
         <!-- 非官方插件 https://github.com/itfsw/mybatis-generator-plugin -->
+        <!-- 批量插入插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.BatchInsertPlugin">
+            <!--
+            开启后可以实现官方插件根据属性是否为空决定是否插入该字段功能
+            ！需开启allowMultiQueries=true多条sql提交操作，所以不建议使用！插件默认不开启
+            -->
+            <property name="allowMultiQueries" value="false"/>
+        </plugin>
+        <!-- MySQL分页插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.LimitPlugin"/>
         <!-- 查询单条数据插件 -->
         <plugin type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin"/>
         <!-- 查询结果选择性返回插件 -->
@@ -35,6 +45,9 @@
             <!-- 逻辑删除-未删除值 -->
             <property name="logicalUnDeleteValue" value="0"/>
         </plugin>
+        <!-- Selective选择插入更新增强插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.SelectiveEnhancedPlugin"/>
+
         <!-- 乐观锁插件 -->
         <plugin type="com.itfsw.mybatis.generator.plugins.OptimisticLockerPlugin"/>
 

@@ -2,6 +2,7 @@ package org.linlinjava.litemall.wx.web.dto;
 
 import org.fengxiaodong.db.bean.Address;
 import org.fengxiaodong.db.bean.Good;
+import org.fengxiaodong.db.bean.Order;
 import org.linlinjava.litemall.wx.util.JsonUtils;
 
 import java.util.List;
@@ -9,17 +10,17 @@ import java.util.List;
 public class OrderDto {
 
 
-    private Integer id;
+    private Order order;
     private List<Good> goodList;
 
     private Address address;
 
-    public Integer getId() {
-        return id;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public List<Good> getGoodList() {

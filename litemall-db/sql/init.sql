@@ -46,6 +46,7 @@ create table if not exists `order`(
    `user_id` int(32) unsigned NOT NULL DEFAULT 0 COMMENT '',
     `address_id` int(32) unsigned NOT NULL DEFAULT 0 COMMENT 'id',
    `promotion_type` tinyint NOT NULL DEFAULT 0 COMMENT '营销种类 0：无 1：满减',
+    `status` tinyint NOT NULL DEFAULT 0 COMMENT '物品的状态：0，提交 1.已付款未发货 3. 已经发货未付款 4.已经发货且已付款 5.取消, 6 删除',
    `update_time` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT  '更新时间',
    `create_time` TIMESTAMP NOT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`)
