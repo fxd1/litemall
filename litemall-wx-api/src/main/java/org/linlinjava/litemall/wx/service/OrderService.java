@@ -1,6 +1,7 @@
 package org.linlinjava.litemall.wx.service;
 
 import com.google.common.collect.Lists;
+import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.fengxiaodong.db.bean.Address;
 import org.fengxiaodong.db.bean.Good;
 import org.fengxiaodong.db.bean.Order;
@@ -81,6 +82,10 @@ public class OrderService {
         );
     }
 
+
+    public Order findById(int id){
+        return orderMapper.selectByPrimaryKey(id);
+    }
 
     /**
      * 逻辑删除订单

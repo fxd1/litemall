@@ -24,4 +24,9 @@ public class AddressService {
                 .example()
         );
     }
+
+
+    public Address findById(int addressId){
+        return addressMapper.selectByPrimaryKey(addressId);
+    }
 }
