@@ -7,7 +7,7 @@ import org.fengxiaodong.db.service.LitemallCouponService;
 import org.fengxiaodong.db.service.LitemallUserService;
 import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.wx.annotation.LoginUser;
-import org.linlinjava.litemall.wx.service.UserInfoService;
+import org.linlinjava.litemall.wx.service.UserService;
 import org.linlinjava.litemall.wx.dao.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ public class WxCommentController {
     @Autowired
     private LitemallCouponService couponService;
     @Autowired
-    private UserInfoService userInfoService;
+    private UserService userService;
 
     /**
      * 发表评论
@@ -127,7 +127,7 @@ public class WxCommentController {
         List<Map<String, Object>> commentVoList = new ArrayList<>(commentList.size());
         for(LitemallComment comment : commentList){
             Map<String, Object> commentVo = new HashMap<>();
-            UserInfo userInfo = userInfoService.getInfo(comment.getUserId());
+            UserInfo userInfo = userService.getInfo(comment.getUserId());
             commentVo.put("userInfo", userInfo);
             commentVo.put("addTime", comment.getAddTime());
             commentVo.put("content",comment.getContent());

@@ -1,7 +1,6 @@
 package org.linlinjava.litemall.wx.service;
 
 import com.google.common.collect.Lists;
-import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.fengxiaodong.db.bean.Address;
 import org.fengxiaodong.db.bean.Good;
 import org.fengxiaodong.db.bean.Order;

@@ -11,6 +11,7 @@ create table if not EXISTS `user`(
    PRIMARY KEY (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
+
 create table if not EXISTS `address`(
    `id` int(32) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
    `user_id` int(32) NOT NULL DEFAULT 0 COMMENT '用户id',
